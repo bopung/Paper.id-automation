@@ -12,9 +12,11 @@ When('I enter a valid email and password', async () => {
     await nextButton.click();
 
     const passwordField = await $('[data-cy="password"]');  
-    const loginButton = await $('button.paper-button.green-button');
+    //const loginButton = await $('[data-cy="submit"]');
     await passwordField.setValue('paper.id');
-    await loginButton.click();
+    await browser.execute(() => {
+        document.querySelector("#mat-mdc-dialog-0 > div > div > login-password-dialog > section > div.login-password-dialog__password > form > button").click();
+    });
 });
 
 When('I enter an invalid email or password', async () => {
@@ -25,9 +27,12 @@ When('I enter an invalid email or password', async () => {
 });
 
 Then('I should see the Paper.id dashboard', async () => {
-    await browser.pause(3000);
-    const dashboardElement = await $('h1=Dashboard');  
-    assert(await dashboardElement.isDisplayed(), 'Dashboard was not displayed after login');
+    await browser.pause(10000);
+
+    const currentUrl = await browser.getUrl();
+
+    assert.strictEqual(currentUrl, 'https://www.paper.id/webappv1/#/invoicer/dashboardv2', 
+        `Expected to be on the dashboard page, but was on ${currentUrl}`);
 });
 
 Then('I should see an error message', async () => {
