@@ -7,4 +7,4 @@ npx wdio wdio.conf.js --suite all
 
 update chrome driver :
 
-npm install chromedriver --save-eev
+npm install chromedriver --save-dev
