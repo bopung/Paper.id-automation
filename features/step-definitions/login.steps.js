@@ -12,7 +12,7 @@ When('I enter a valid email and password', async () => {
     await nextButton.click();
 
     const passwordField = await $('[data-cy="password"]');  
-    const loginButton = await $('[data-cy="submit"]'); 
+    const loginButton = await $('button.paper-button.green-button.auth-form__submit-btn');  
     await passwordField.setValue('paper.id');
     await loginButton.click();
 });
@@ -22,11 +22,6 @@ When('I enter an invalid email or password', async () => {
     const nextButton = await $('[data-cy="submit"]'); 
     await emailField.setValue('invalid@paper.id');
     await nextButton.click();
-
-    const passwordField = await $('[data-cy="password"]');  
-    const loginButton = await $('[data-cy="masuk"]');  
-    await passwordField.setValue('invalidPassword');
-    await loginButton.click();
 });
 
 Then('I should see the Paper.id dashboard', async () => {
@@ -37,6 +32,6 @@ Then('I should see the Paper.id dashboard', async () => {
 
 Then('I should see an error message', async () => {
     await browser.pause(3000);
-    const errorMessage = await $('p=Email atau kata sandi Anda salah');  
+    const errorMessage = await $('p=Email tidak terdaftar. Silahkan registrasi terlebih dahulu.');  
     assert(await errorMessage.isDisplayed(), 'Error message was not displayed for invalid login');
 });
