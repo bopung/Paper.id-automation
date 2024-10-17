@@ -12,7 +12,7 @@ When('I enter a valid email and password', async () => {
     await nextButton.click();
 
     const passwordField = await $('[data-cy="password"]');  
-    const loginButton = await $('button.paper-button.green-button.auth-form__submit-btn');  
+    const loginButton = await $('button.paper-button.green-button');
     await passwordField.setValue('paper.id');
     await loginButton.click();
 });
@@ -32,6 +32,9 @@ Then('I should see the Paper.id dashboard', async () => {
 
 Then('I should see an error message', async () => {
     await browser.pause(3000);
-    const errorMessage = await $('p=Email tidak terdaftar. Silahkan registrasi terlebih dahulu.');  
+    
+    const errorMessage = await $('h3=Email tidak terdaftar. Silahkan registrasi terlebih dahulu.');
+    
     assert(await errorMessage.isDisplayed(), 'Error message was not displayed for invalid login');
 });
+
